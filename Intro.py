@@ -26,18 +26,18 @@ with col1:
  st.write(f"Aqui el enlace: [Enlace]({url})")
 
  st.subheader("Reconocimiento de Objetos")
- image = Image.open('txt_to_audio.png')
+ image = Image.open('imagen2.jpg')
  st.image(image, width=200)
  st.write("En la siguiente enlace veremos como se detectan objetos en Imágenes.") 
- url = "https://yolov5cmc.streamlit.app/"
- st.write(f"YOLO: [Enlace]({url})")
+ url = "https://miaahora-fjj6fujljb6rzv2zwvzoat.streamlit.app/"
+ st.write(f"Aqui el enlace: [Enlace]({url})")
 
- st.subheader("Entrenando Modelos")
- image = Image.open('OIG5.jpg')
+ st.subheader("Traductor")
+ image = Image.open('imagen3.png')
  st.image(image, width=200)
- st.write("En la siguiente enlace veremos como puedes usar tu modelo entrenado.") 
- url = "https://xn3pg24ztuv6fdiqon8qn3.streamlit.app/"
- st.write(f"YOLO: [Enlace]({url})")
+ st.write("Podras traducir lo que dices a varios idiomas") 
+ url = "https://traductor-multimodales-msvwvk3xeyowm3ofhsebtq.streamlit.app/"
+ st.write(f"Aqui en enlace: [Enlace]({url})")
 
 with col2: 
  st.subheader("Conversión de voz a texto")
