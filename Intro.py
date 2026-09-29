@@ -1,208 +1,363 @@
 import streamlit as st
 from PIL import Image
 
-# =========================
+# =========================================================
 # CONFIGURACIÓN
-# =========================
+# =========================================================
 
 st.set_page_config(
-    page_title="Portafolio de aplicaciones",
+    page_title="Portafolio de Aplicaciones",
     page_icon="💻",
     layout="wide"
 )
 
-# =========================
-# DISEÑO / CSS
-# =========================
+# =========================================================
+# ESTILOS
+# =========================================================
 
 st.markdown("""
 <style>
 
-    /* Fondo general */
+    /* =========================
+       FONDO GENERAL
+       ========================= */
+
     .stApp {
-        background: #f5f7fb;
+        background-color: #f4f8fc;
     }
 
-    /* Contenedor principal */
     .main .block-container {
-        padding-top: 2rem;
-        padding-bottom: 3rem;
         max-width: 1400px;
+        padding-top: 2.5rem;
+        padding-bottom: 4rem;
     }
 
-    /* Título principal */
+
+    /* =========================
+       TÍTULOS
+       ========================= */
+
     h1 {
+        color: #0b2d4d !important;
         font-size: 42px !important;
         font-weight: 800 !important;
-        color: #172033 !important;
+        letter-spacing: -1px;
         margin-bottom: 5px !important;
     }
 
-    /* Subtítulos */
     h2, h3 {
-        color: #202938 !important;
+        color: #123b5d !important;
     }
 
-    /* Texto */
     p {
-        color: #596273;
+        color: #536577;
     }
 
-    /* Sidebar */
+
+    /* =========================
+       SIDEBAR
+       ========================= */
+
     section[data-testid="stSidebar"] {
-        background: #172033;
+        background-color: #0b2d4d;
     }
 
     section[data-testid="stSidebar"] h3 {
         color: white !important;
+        font-size: 20px !important;
     }
 
     section[data-testid="stSidebar"] p {
-        color: #d9deea !important;
+        color: #dceaf5 !important;
         line-height: 1.7;
     }
 
-    /* Línea decorativa */
+
+    /* =========================
+       LÍNEA DECORATIVA
+       ========================= */
+
     .linea {
-        height: 4px;
-        width: 80px;
-        background: #6c63ff;
-        border-radius: 20px;
-        margin-bottom: 30px;
+        width: 75px;
+        height: 5px;
+        background: #1683d8;
+        border-radius: 10px;
+        margin-bottom: 28px;
     }
 
-    /* Tarjetas */
-    .card {
+
+    /* =========================
+       ENCABEZADO
+       ========================= */
+
+    .header-box {
         background: white;
         border-radius: 18px;
-        padding: 22px;
+        padding: 28px 32px;
         margin-bottom: 25px;
-        box-shadow: 0px 6px 20px rgba(23, 32, 51, 0.08);
-        border: 1px solid #e8ebf2;
+        border: 1px solid #dce8f2;
+        box-shadow: 0 5px 18px rgba(20, 70, 110, 0.06);
+    }
+
+    .header-title {
+        font-size: 27px;
+        font-weight: 750;
+        color: #123b5d;
+        margin-bottom: 7px;
+    }
+
+    .header-text {
+        color: #607486;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+
+    /* =========================
+       TARJETAS
+       ========================= */
+
+    .card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 20px;
+        margin-bottom: 22px;
+
+        border: 1px solid #dce8f2;
+
+        box-shadow:
+            0px 5px 18px rgba(20, 70, 110, 0.07);
+
         transition: all 0.25s ease;
     }
 
     .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0px 12px 30px rgba(23, 32, 51, 0.14);
+        transform: translateY(-4px);
+
+        box-shadow:
+            0px 10px 28px rgba(20, 70, 110, 0.14);
+
+        border-color: #9ccbea;
     }
 
-    /* Título de las apps */
+
+    /* =========================
+       TÍTULO DE APP
+       ========================= */
+
     .card-title {
-        font-size: 21px;
+        color: #0b2d4d;
+        font-size: 20px;
         font-weight: 750;
-        color: #202938;
-        margin-bottom: 12px;
+        margin-bottom: 13px;
     }
 
-    /* Descripción */
+
+    /* =========================
+       DESCRIPCIÓN
+       ========================= */
+
     .card-description {
-        font-size: 15px;
-        color: #697386;
-        line-height: 1.5;
+        color: #657789;
+        font-size: 14px;
+        line-height: 1.55;
         min-height: 45px;
+        margin-top: 8px;
+        margin-bottom: 8px;
     }
 
-    /* Botón */
+
+    /* =========================
+       BOTONES
+       ========================= */
+
     .boton {
         display: inline-block;
-        background: #6c63ff;
+
+        background: #1683d8;
         color: white !important;
-        padding: 9px 17px;
+
+        padding: 9px 16px;
+
         border-radius: 9px;
+
         text-decoration: none !important;
-        font-weight: 600;
+
         font-size: 14px;
-        margin-top: 8px;
-        transition: 0.2s;
+        font-weight: 650;
+
+        margin-top: 7px;
+
+        transition: all 0.2s ease;
     }
 
     .boton:hover {
-        background: #5148e5;
+        background: #0b6db7;
         color: white !important;
     }
 
-    /* Separador de columnas */
-    .columna {
-        padding: 5px;
-    }
 
-    /* Enlace Github */
+    /* =========================
+       GITHUB
+       ========================= */
+
     .github-box {
         background: white;
-        padding: 20px 25px;
-        border-radius: 15px;
-        border: 1px solid #e5e8ef;
-        box-shadow: 0px 4px 15px rgba(23, 32, 51, 0.06);
-        margin-bottom: 35px;
+
+        border-left: 5px solid #1683d8;
+
+        border-radius: 14px;
+
+        padding: 20px 24px;
+
+        margin-top: 10px;
+        margin-bottom: 14px;
+
+        border-top: 1px solid #dce8f2;
+        border-right: 1px solid #dce8f2;
+        border-bottom: 1px solid #dce8f2;
+
+        box-shadow:
+            0px 4px 15px rgba(20, 70, 110, 0.06);
+    }
+
+    .github-title {
+        color: #123b5d;
+        font-size: 20px;
+        font-weight: 750;
+        margin-bottom: 5px;
+    }
+
+    .github-text {
+        color: #657789;
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       ETIQUETA SUPERIOR
+       ========================= */
+
+    .badge {
+        display: inline-block;
+
+        background: #e5f3ff;
+        color: #0873bd;
+
+        padding: 6px 12px;
+
+        border-radius: 20px;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        margin-bottom: 10px;
+    }
+
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    .footer {
+        text-align: center;
+
+        margin-top: 35px;
+        padding-top: 25px;
+
+        border-top: 1px solid #dce8f2;
+
+        color: #718394;
+
+        font-size: 13px;
     }
 
 </style>
 """, unsafe_allow_html=True)
 
 
-# =========================
+# =========================================================
 # SIDEBAR
-# =========================
+# =========================================================
 
 with st.sidebar:
+
     st.subheader("Aplicaciones con Streamlit, GitHub, Python.")
 
     parrafo = (
-        "Aplicaciones hechas en el proceso del curso. "
+        "Aplicaciones hechas en el proceso del curso "
         "Se han aprendido nuevas e interesantes herramientas para aplicar "
-        "todo con el fin de entender mejor este tipo de tecnologías."
+        "Todo con el fin de entender mejor este tipo de tecnologías"
     )
 
     st.write(parrafo)
 
 
-# =========================
-# ENCABEZADO
-# =========================
+# =========================================================
+# ENCABEZADO PRINCIPAL
+# =========================================================
+
+st.markdown(
+    '<div class="badge">PORTAFOLIO ACADÉMICO</div>',
+    unsafe_allow_html=True
+)
 
 st.title("Portafolio de seguimiento - Aplicaciones.")
-st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
+
+st.markdown(
+    '<div class="linea"></div>',
+    unsafe_allow_html=True
+)
 
 
-# =========================
+# =========================================================
 # GITHUB
-# =========================
+# =========================================================
 
 url_ia = "https://github.com/Usuario-s?tab=repositories"
 
 st.markdown("""
 <div class="github-box">
-    <h3>Repositorio de proyectos</h3>
-    <p>
-        En el siguiente enlace puedes consultar los repositorios
-        y proyectos desarrollados durante el curso.
-    </p>
+
+    <div class="github-title">
+        Repositorios en GitHub
+    </div>
+
+    <div class="github-text">
+        En el siguiente enlace puedes ver los repositorios
+        desarrollados durante el proceso del curso.
+    </div>
+
 </div>
 """, unsafe_allow_html=True)
 
 st.markdown(
-    f'<a class="boton" href="{url_ia}" target="_blank">Ver repositorios en GitHub ↗</a>',
+    f'<a class="boton" href="{url_ia}" target="_blank">'
+    'Ver repositorios en GitHub ↗'
+    '</a>',
     unsafe_allow_html=True
 )
 
 st.write("")
 
 
-# =========================
-# COLUMNAS
-# =========================
+# =========================================================
+# APLICACIONES
+# =========================================================
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns(3, gap="large")
 
 
-# ============================================================
+# =========================================================
 # COLUMNA 1
-# ============================================================
+# =========================================================
 
 with col1:
 
-    # APP 1
+    # -----------------------------------------------------
+    # PRIMERA APP
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -214,21 +369,28 @@ with col1:
     st.image(image, width=190)
 
     st.markdown(
-        '<div class="card-description">Mi primera app en Streamlit</div>',
+        '<div class="card-description">'
+        'Mi primera app en streamlit'
+        '</div>',
         unsafe_allow_html=True
     )
 
     url = "https://intro-app-1-su8r5tpxlwpwnflpltft2y.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-    # APP 2
+    # -----------------------------------------------------
+    # RECONOCIMIENTO DE OBJETOS
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -249,14 +411,19 @@ with col1:
     url = "https://miaahora-fjj6fujljb6rzv2zwvzoat.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-    # APP 3
+    # -----------------------------------------------------
+    # TRADUCTOR
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -269,7 +436,7 @@ with col1:
 
     st.markdown(
         '<div class="card-description">'
-        'Podrás traducir lo que dices a varios idiomas.'
+        'Podrás traducir lo que dices a varios idiomas'
         '</div>',
         unsafe_allow_html=True
     )
@@ -277,20 +444,25 @@ with col1:
     url = "https://traductor-multimodales-msvwvk3xeyowm3ofhsebtq.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-# ============================================================
+# =========================================================
 # COLUMNA 2
-# ============================================================
+# =========================================================
 
 with col2:
 
-    # APP 4
+    # -----------------------------------------------------
+    # IMAGEN A TEXTO
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -303,7 +475,7 @@ with col2:
 
     st.markdown(
         '<div class="card-description">'
-        'Aquí verán reconocimiento de imágenes para reconocer el texto de ellas.'
+        'Aquí verán reconocimiento de imágenes para reconocer el texto de ellas'
         '</div>',
         unsafe_allow_html=True
     )
@@ -311,14 +483,19 @@ with col2:
     url = "https://ocr-imagen-1-hjea2xr4z9ddlpyoibf4pb.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-    # APP 5
+    # -----------------------------------------------------
+    # RECONOCIMIENTO DE CARACTERES
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -331,7 +508,7 @@ with col2:
 
     st.markdown(
         '<div class="card-description">'
-        'Un reconocimiento de caracteres con datos.'
+        'Un reconocimiento de caracteres con datos'
         '</div>',
         unsafe_allow_html=True
     )
@@ -339,14 +516,19 @@ with col2:
     url = "https://ocr-audio-traductor-2-suib88gv4xbfrjn33prrb8.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-    # APP 6
+    # -----------------------------------------------------
+    # WORLDCLOUD
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -359,7 +541,7 @@ with col2:
 
     st.markdown(
         '<div class="card-description">'
-        'Una nube de palabras.'
+        'Una nube de palabras'
         '</div>',
         unsafe_allow_html=True
     )
@@ -367,20 +549,25 @@ with col2:
     url = "https://wordcloudmio-dpzz2zwohcpixhtiqhfefz.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-# ============================================================
+# =========================================================
 # COLUMNA 3
-# ============================================================
+# =========================================================
 
 with col3:
 
-    # APP 7
+    # -----------------------------------------------------
+    # CONSULTORIO PSICOLÓGICO
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -393,7 +580,7 @@ with col3:
 
     st.markdown(
         '<div class="card-description">'
-        'En base a una frase te diremos el mood de tu día.'
+        'En base a una frase te diremos el mood de tu día'
         '</div>',
         unsafe_allow_html=True
     )
@@ -401,14 +588,19 @@ with col3:
     url = "https://sentimentpsic-nmnxejormvmhg8vgjeajm6.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-    # APP 8
+    # -----------------------------------------------------
+    # TF-IDF
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -421,7 +613,7 @@ with col3:
 
     st.markdown(
         '<div class="card-description">'
-        'Preguntas y lectura de documentos.'
+        'Preguntas y lectura de documentos'
         '</div>',
         unsafe_allow_html=True
     )
@@ -429,14 +621,19 @@ with col3:
     url = "https://espa-ol-espa-ol-pryjfznrx6oev7g57t7nok.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-    # APP 9
+    # -----------------------------------------------------
+    # DETECCIÓN DE OBJETOS
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -449,7 +646,7 @@ with col3:
 
     st.markdown(
         '<div class="card-description">'
-        'Detecta cualquier objeto con tu cámara.'
+        'Detecta cualquier objeto con tu cámara'
         '</div>',
         unsafe_allow_html=True
     )
@@ -457,14 +654,19 @@ with col3:
     url = "https://yolov5555-xx2ljp8ij9xinsthel5juu.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-    # APP 10
+    # -----------------------------------------------------
+    # RECONOCIMIENTO DE IMÁGENES
+    # -----------------------------------------------------
+
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown(
@@ -477,7 +679,7 @@ with col3:
 
     st.markdown(
         '<div class="card-description">'
-        'Toma una foto y te dirá todo.'
+        'Toma una foto y te dirá todo'
         '</div>',
         unsafe_allow_html=True
     )
@@ -485,9 +687,21 @@ with col3:
     url = "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
 
     st.markdown(
-        f'<a class="boton" href="{url}" target="_blank">Abrir aplicación ↗</a>',
+        f'<a class="boton" href="{url}" target="_blank">'
+        'Abrir aplicación ↗'
+        '</a>',
         unsafe_allow_html=True
     )
 
     st.markdown('</div>', unsafe_allow_html=True)
 
+
+# =========================================================
+# FOOTER
+# =========================================================
+
+st.markdown("""
+<div class="footer">
+    Portafolio de aplicaciones · Streamlit · Python · GitHub
+</div>
+""", unsafe_allow_html=True)
