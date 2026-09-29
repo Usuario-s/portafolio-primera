@@ -40,26 +40,26 @@ with col1:
  st.write(f"Aqui en enlace: [Enlace]({url})")
 
 with col2: 
- st.subheader("Conversión de voz a texto")
- image = Image.open('OIG8.jpg')
+ st.subheader("Imagen a texto
+ image = Image.open('imagen4.jpg')
  st.image(image, width=200)
- st.write("En la siguiente veremos una aplicación que usa la conversión de voz a texto.") 
- url = "https://traductorw.streamlit.app/"
- st.write(f"Voz a texto: [Enlace]({url})")
+ st.write("Aqui veran reconocimiento de imagenes para reconocer el texto de ellas") 
+ url = "https://ocr-imagen-1-hjea2xr4z9ddlpyoibf4pb.streamlit.app/"
+ st.write(f"Aqui en enlace: [Enlace]({url})")
 
- st.subheader("Análisis de Datos")
- image = Image.open('data_analisis.png')
+ st.subheader("Reconocimiento de caracteres")
+ image = Image.open('imagen5.jpg')
  st.image(image, width=190)
- st.write("En la siguiente enlace veremos como se pueden analizar datos usando agentes.") 
- url = "https://dataagente.streamlit.app/"
- st.write(f"Datos: [Enlace]({url})")
+ st.write("Un reconocimiento de caracteres con datos ") 
+ url = "https://ocr-audio-traductor-2-suib88gv4xbfrjn33prrb8.streamlit.app/"
+ st.write(f"Aqui en enlace: [Enlace]({url})")
 
- st.subheader("Trasnscriptor Audio y Video")
- image = Image.open('OIG3.jpg')
+ st.subheader("Worldcloud studio")
+ image = Image.open('imagen6.jpg')
  st.image(image, width=200)
- st.write("En la siguiente enlace veremos como realizamos transcripciones de audio/video.") 
- url = "https://transcript-whisper.streamlit.app/"
- st.write(f"Transcriptor: [Enlace]({url})")
+ st.write("Una nube de palabras") 
+ url = "https://wordcloudmio-dpzz2zwohcpixhtiqhfefz.streamlit.app/"
+ st.write(f"Aqui en enlace: [Enlace]({url})")
 
 
 with col3: 
