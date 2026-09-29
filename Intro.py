@@ -63,25 +63,25 @@ with col2:
 
 
 with col3: 
- st.subheader("Generación en Contexto")
- image = Image.open('Chat_pdf.png')
+ st.subheader("Consultorio psicologico")
+ image = Image.open('imagen7.jpg')
  st.image(image, width=190)
- st.write("En la siguiente veremos una aplicación que usa RAG a partir de un documento (PDF).") 
- url = "https://chatpdf-cc.streamlit.app/"
- st.write(f"RAG: [Enlace]({url})")
+ st.write("En base a una frase te diremos el mood de tu día") 
+ url = "https://sentimentpsic-nmnxejormvmhg8vgjeajm6.streamlit.app/"
+ st.write(f"Aqui en enlace: [Enlace]({url})")
 
- st.subheader("Análisis de Imagen")
- image = Image.open('OIG4.jpg')
+ st.subheader("Demo TF-IDF")
+ image = Image.open('imagen8.png')
  st.image(image, width=200)
- st.write("En la siguiente enlace veremos la capacidad de análisis en Imágenes.") 
- url = "https://vision2-gpt4o.streamlit.app/"
- st.write(f"Vision: [Enlace]({url})")
+ st.write("Preguntas y lectura de documentos") 
+ url = "https://espa-ol-espa-ol-pryjfznrx6oev7g57t7nok.streamlit.app/"
+ st.write(f"Aqui en enlace: [Enlace]({url})")
  
- st.subheader("Sistema Ciberfísico")
- image = Image.open('OIG6.jpg')
+ st.subheader("Detección de objetos en imagenes")
+ image = Image.open('imagen9.png')
  st.image(image, width=200)
- st.write("En la siguiente enlace veremos la capacidad de interacción con el mundo físico.") 
- url = "https://vision2-gpt4o.streamlit.app/"
- st.write(f"Vision: [Enlace]({url})")
+ st.write("Detecta cualquier objeto con tu camara") 
+ url = "https://yolov5555-xx2ljp8ij9xinsthel5juu.streamlit.app/"
+ st.write(f"Aqui en enlace: [Enlace]({url})")
 
 
