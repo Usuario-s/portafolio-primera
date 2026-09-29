@@ -40,7 +40,7 @@ with col1:
  st.write(f"Aqui en enlace: [Enlace]({url})")
 
 with col2: 
- st.subheader("Imagen a texto
+ st.subheader("Imagen a texto")
  image = Image.open('imagen4.jpg')
  st.image(image, width=200)
  st.write("Aqui veran reconocimiento de imagenes para reconocer el texto de ellas") 
