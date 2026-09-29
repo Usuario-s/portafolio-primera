@@ -84,7 +84,7 @@ with col3:
  url = "https://yolov5555-xx2ljp8ij9xinsthel5juu.streamlit.app/"
  st.write(f"Aqui en enlace: [Enlace]({url})")
 
-with col14:
+
  st.subheader("Reconocimiento de imagenes")
  image = Image.open('imagen10.jpg')
  st.image(image, width=200)
