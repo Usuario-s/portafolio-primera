@@ -1,19 +1,19 @@
 import streamlit as st
 from PIL import Image
-st.title("Aplicaciones de Inteligencia Artificial.")
+st.title("Portafolio de seguimiento - aplicaciones.")
 
 with st.sidebar:
-  st.subheader("Aplicaciones con Inteligencia Artificial.")
+  st.subheader("Aplicaciones con streamlit, github, py.")
   parrafo = (
-    "La inteligencia artificial permite mejorar la toma de decisiones con el uso de datos, "
-    "automatizar tareas rutinarias y proporcionar análisis avanzados en tiempo real, lo que "
-    "resulta en una mayor eficiencia y precisión en diversos campos."
+    "Aplicaciones hechan en el proceso del curso "
+    "Se han aprendido nuevas e interesantes herramientas para aplicar "
+    "Todo con el fin de entender mejor este tipo de tecnologías"
   )
   st.write(parrafo)
 
-url_ia="https://sites.google.com/view/aplicacionesdeia/inicio"
-st.subheader("En el siguiente enlace puedes encontrar páginas y ejercicios prácticos")
-st.write(f"Enlace para páginas y ejercicios: [Enlace]({url_ia})")
+url_ia="https://github.com/Usuario-s?tab=repositories"
+st.subheader("En el siguiente enlace puedes ver los repositorios a github")
+st.write(f"Enlace aqui: [Enlace]({url_ia})")
 col1, col2, col3 = st.columns(3)
 
 with col1:
