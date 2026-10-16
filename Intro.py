@@ -13,25 +13,15 @@ st.set_page_config(
 )
 
 # =========================================================
-# ESTILOS VISUALES
+# ESTILOS
 # =========================================================
 
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-:root {
-    --navy: #102A43;
-    --blue: #1677C8;
-    --blue-dark: #105A96;
-    --background: #F2F6FB;
-    --border: #D8E4F0;
-    --text: #334E68;
-    --muted: #627D98;
-}
-
 .stApp {
-    background-color: var(--background);
+    background-color: #F1F5FA;
     font-family: 'Inter', sans-serif;
 }
 
@@ -40,64 +30,50 @@ st.markdown("""
     padding: 2.5rem 2rem 3rem;
 }
 
-/* TÍTULOS */
+/* TÍTULOS PRINCIPALES */
 
 h1 {
-    color: var(--navy) !important;
+    color: #102A43 !important;
     font-size: clamp(28px, 3vw, 42px) !important;
     font-weight: 800 !important;
     letter-spacing: -1px;
-    line-height: 1.2 !important;
 }
 
 h2, h3 {
-    color: var(--navy) !important;
-}
-
-p {
-    color: var(--text);
+    color: #102A43 !important;
 }
 
 /* BARRA LATERAL */
 
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #102A43 0%, #174A70 100%);
-    border-right: 1px solid #234F70;
-}
-
-section[data-testid="stSidebar"] > div {
-    padding-top: 2rem;
+    background: linear-gradient(180deg, #102A43, #174A70);
 }
 
 section[data-testid="stSidebar"] h3 {
-    color: #FFFFFF !important;
-    font-size: 20px !important;
-    font-weight: 800 !important;
-    line-height: 1.5;
+    color: white !important;
 }
 
 section[data-testid="stSidebar"] p {
     color: #E0EDF8 !important;
-    font-size: 14px;
-    line-height: 1.85;
+    line-height: 1.8;
 }
 
-/* ETIQUETA SUPERIOR */
+/* ETIQUETA */
 
 .badge {
     display: inline-block;
     background: #DCEEFF;
     color: #075A9E;
-    padding: 7px 13px;
     border: 1px solid #C1E0FA;
+    padding: 7px 13px;
     border-radius: 30px;
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 1.1px;
+    letter-spacing: 1px;
     margin-bottom: 15px;
 }
 
-/* LÍNEA DECORATIVA */
+/* LÍNEA */
 
 .linea {
     width: 78px;
@@ -107,66 +83,63 @@ section[data-testid="stSidebar"] p {
     margin: 15px 0 30px;
 }
 
-/* TARJETAS */
+/* =========================================================
+   TARJETAS NATIVAS DE STREAMLIT
+   ========================================================= */
 
-.card {
-    background: #FFFFFF;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 24px 18px 22px;
-    margin-bottom: 24px;
-    min-height: 355px;
-    box-shadow: 0 5px 18px rgba(16, 42, 67, 0.055);
-    transition: transform 0.25s ease,
-                box-shadow 0.25s ease,
-                border-color 0.25s ease;
+/* Fondo blanco en los contenedores con borde */
+
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #D5E2EF !important;
+    border-radius: 18px !important;
+    box-shadow: 0 5px 18px rgba(16, 42, 67, 0.08);
+    overflow: hidden;
 }
 
-.card:hover {
-    transform: translateY(-4px);
-    border-color: #8CC9F3;
-    box-shadow: 0 12px 28px rgba(16, 42, 67, 0.12);
+/* Padding interno de cada tarjeta */
+
+div[data-testid="stVerticalBlockBorderWrapper"] > div {
+    background-color: #FFFFFF !important;
+    padding: 18px 16px !important;
 }
 
-/* CONTENIDO DE LAS TARJETAS */
+/* Los elementos internos deben ser transparentes,
+   para que se vea el fondo blanco de la tarjeta */
 
-.card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
+div[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlock"] {
+    background-color: transparent !important;
 }
 
-/* TÍTULOS DE APLICACIONES */
+/* TÍTULOS DE LAS TARJETAS */
 
 .card-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--navy);
+    color: #102A43;
     font-size: 18px;
     font-weight: 800;
-    line-height: 1.4;
-    min-height: 50px;
-    margin: 0 0 15px;
-    width: 100%;
+    text-align: center;
+    line-height: 1.45;
+    min-height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
 }
 
-/* DESCRIPCIONES */
+/* DESCRIPCIÓN */
 
 .card-description {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     color: #52677B;
     font-size: 13px;
     line-height: 1.7;
-    min-height: 65px;
-    width: 100%;
-    margin: 0 0 14px;
+    text-align: center;
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0 12px;
+    overflow-wrap: anywhere;
 }
 
 /* IMÁGENES */
@@ -176,7 +149,7 @@ div[data-testid="stImage"] {
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 0 auto 15px;
+    margin: 8px auto 14px;
 }
 
 div[data-testid="stImage"] img {
@@ -184,74 +157,39 @@ div[data-testid="stImage"] img {
     border-radius: 10px;
 }
 
-/* BOTONES */
+/* BOTONES NATIVOS */
 
-.boton {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-    background: var(--blue);
-    color: #FFFFFF !important;
-    border: 1px solid var(--blue);
-    padding: 11px 16px;
-    border-radius: 10px;
-    text-decoration: none !important;
-    font-size: 13px;
-    font-weight: 700;
-    text-align: center;
-    transition: background 0.2s ease,
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-}
-
-.boton:hover {
-    background: var(--blue-dark);
-    border-color: var(--blue-dark);
-    color: #FFFFFF !important;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 14px rgba(22, 119, 200, 0.23);
-}
-
-.boton-container {
+div[data-testid="stLinkButton"] {
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 100%;
-    margin-top: 4px;
+    margin: 10px 0 4px;
 }
 
-/* SECCIÓN GITHUB */
-
-.github-box {
-    background: #FFFFFF;
-    border: 1px solid #D4E3F0;
-    border-left: 5px solid #1677C8;
-    border-radius: 16px;
-    padding: 23px 25px;
-    margin: 10px 0 15px;
-    box-shadow: 0 5px 18px rgba(16, 42, 67, 0.06);
+div[data-testid="stLinkButton"] a {
+    background-color: #1677C8 !important;
+    border: 1px solid #1677C8 !important;
+    color: #FFFFFF !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-align: center;
+    transition: background-color 0.2s ease;
 }
 
-.github-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+div[data-testid="stLinkButton"] a:hover {
+    background-color: #105A96 !important;
+    border-color: #105A96 !important;
+    color: #FFFFFF !important;
 }
 
-.github-left {
-    flex: 1;
-    min-width: 220px;
-}
+/* GITHUB */
 
 .github-label {
     color: #1677C8;
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.2px;
-    text-transform: uppercase;
     margin-bottom: 7px;
 }
 
@@ -259,8 +197,7 @@ div[data-testid="stImage"] img {
     color: #102A43;
     font-size: 21px;
     font-weight: 800;
-    line-height: 1.4;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .github-text {
@@ -270,19 +207,15 @@ div[data-testid="stImage"] img {
 }
 
 .github-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 62px;
-    height: 62px;
-    padding: 12px;
-    border-radius: 15px;
     background: #E8F4FF;
     color: #105A96;
-    font-size: 29px;
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+    font-size: 28px;
 }
 
-/* FOOTER */
+/* PIE DE PÁGINA */
 
 .footer {
     text-align: center;
@@ -291,33 +224,17 @@ div[data-testid="stImage"] img {
     border-top: 1px solid #D8E4F0;
     color: #627D98;
     font-size: 12px;
-    letter-spacing: 0.2px;
 }
 
-/* COLUMNAS */
-
-div[data-testid="stHorizontalBlock"] {
-    align-items: stretch;
-}
-
-/* RESPONSIVE */
+/* MÓVILES */
 
 @media (max-width: 768px) {
     .main .block-container {
         padding: 1.5rem 1rem 2rem;
     }
 
-    .card {
-        padding: 20px 14px;
-        min-height: auto;
-    }
-
     .card-title {
         font-size: 17px;
-    }
-
-    .github-box {
-        padding: 19px;
     }
 }
 </style>
@@ -329,20 +246,18 @@ div[data-testid="stHorizontalBlock"] {
 # =========================================================
 
 with st.sidebar:
-    st.subheader("Aplicaciones con Streamlit, GitHub y Python.")
+    st.subheader("Aplicaciones con Streamlit, GitHub, Python.")
 
-    parrafo = (
+    st.write(
         "Aplicaciones hechas en el proceso del curso. "
         "Se han aprendido nuevas e interesantes herramientas "
         "para aplicar. Todo con el fin de entender mejor "
         "este tipo de tecnologías."
     )
 
-    st.write(parrafo)
-
 
 # =========================================================
-# ENCABEZADO PRINCIPAL
+# ENCABEZADO
 # =========================================================
 
 st.markdown(
@@ -364,82 +279,94 @@ st.markdown(
 
 url_ia = "https://github.com/Usuario-s?tab=repositories"
 
-st.markdown(f"""
-<div class="github-box">
-    <div class="github-content">
-        <div class="github-left">
-            <div class="github-label">CÓDIGO Y PROYECTOS</div>
-            <div class="github-title">Repositorios en GitHub</div>
-            <div class="github-text">
-                En el siguiente enlace puedes ver los repositorios
-                desarrollados durante el proceso del curso.
-            </div>
-        </div>
-        <div class="github-icon">⌘</div>
-    </div>
-</div>
+with st.container(border=True):
 
-<div class="boton-container">
-    <a class="boton"
-       href="{url_ia}"
-       target="_blank"
-       rel="noopener noreferrer">
-       Ver repositorios en GitHub ↗
-    </a>
-</div>
-""", unsafe_allow_html=True)
+    github_col1, github_col2 = st.columns([5, 1])
+
+    with github_col1:
+        st.markdown(
+            '<div class="github-label">CÓDIGO Y PROYECTOS</div>'
+            '<div class="github-title">Repositorios en GitHub</div>'
+            '<div class="github-text">'
+            'En el siguiente enlace puedes ver los repositorios '
+            'desarrollados durante el proceso del curso.'
+            '</div>',
+            unsafe_allow_html=True
+        )
+
+    with github_col2:
+        st.markdown(
+            '<div class="github-icon">⌘</div>',
+            unsafe_allow_html=True
+        )
+
+    st.link_button(
+        "Ver repositorios en GitHub ↗",
+        url_ia
+    )
 
 st.write("")
 st.write("")
 
 
 # =========================================================
-# FUNCIÓN PARA CREAR TARJETAS
+# FUNCIÓN PARA MOSTRAR APLICACIONES
 # =========================================================
 
 def mostrar_app(titulo, imagen_path, descripcion, url, ancho=200):
 
-    st.markdown(
-        '<div class="card"><div class="card-content">',
-        unsafe_allow_html=True
-    )
+    # Crear un contenedor REAL con fondo blanco.
+    # Todos los componentes se crean dentro de este bloque.
+    with st.container(border=True):
 
-    st.markdown(
-        f'<div class="card-title">{titulo}</div>',
-        unsafe_allow_html=True
-    )
+        # Título
+        st.markdown(
+            f'<div class="card-title">{titulo}</div>',
+            unsafe_allow_html=True
+        )
 
-    try:
-        imagen = Image.open(imagen_path)
-        st.image(imagen, width=ancho)
+        # Imagen
+        try:
+            imagen = Image.open(imagen_path)
 
-    except FileNotFoundError:
-        st.warning(f"No se encontró la imagen: {imagen_path}")
+            espacio_izq, centro, espacio_der = st.columns(
+                [1, 4, 1]
+            )
 
-    st.markdown(
-        f'<div class="card-description">{descripcion}</div>',
-        unsafe_allow_html=True
-    )
+            with centro:
+                st.image(
+                    imagen,
+                    width=ancho
+                )
 
-    st.markdown(
-        f"""
-        <div class="boton-container">
-            <a class="boton"
-               href="{url}"
-               target="_blank"
-               rel="noopener noreferrer">
-               Abrir aplicación ↗
-            </a>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+        except FileNotFoundError:
+            st.warning(
+                f"No se encontró la imagen: {imagen_path}"
+            )
 
-    st.markdown('</div></div>', unsafe_allow_html=True)
+        # Descripción
+        st.markdown(
+            f'<div class="card-description">'
+            f'{descripcion}'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+
+        # Botón
+        col_izq, col_boton, col_der = st.columns(
+            [0.5, 4, 0.5]
+        )
+
+        with col_boton:
+            st.link_button(
+                "Abrir aplicación ↗",
+                url,
+                use_container_width=True
+            )
 
 
 # =========================================================
-# DISTRIBUCIÓN DE APLICACIONES
+# COLUMNAS DE APLICACIONES
 # =========================================================
 
 col1, col2, col3 = st.columns(3, gap="large")
@@ -462,7 +389,7 @@ with col1:
     mostrar_app(
         "Reconocimiento de Objetos",
         "imagen2.jpg",
-        "En el siguiente enlace veremos como se detectan objetos en Imágenes.",
+        "En la siguiente enlace veremos como se detectan objetos en Imágenes.",
         "https://miaahora-fjj6fujljb6rzv2zwvzoat.streamlit.app/",
         200
     )
