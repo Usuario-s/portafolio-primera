@@ -1,6 +1,8 @@
 
 import streamlit as st
-from PIL import Image
+import base64
+import mimetypes
+import html
 
 # =========================================================
 # CONFIGURACIÓN
@@ -18,469 +20,671 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-.stApp {
-    background-color: #F1F5FA;
-    font-family: 'Inter', sans-serif;
-}
+    /* ==========================================
+       FONDO GENERAL: DEGRADADO + TEXTURA
+       ========================================== */
 
-.main .block-container {
-    max-width: 1450px;
-    padding: 2.5rem 2rem 3rem;
-}
-
-/* TÍTULOS PRINCIPALES */
-
-h1 {
-    color: #102A43 !important;
-    font-size: clamp(28px, 3vw, 42px) !important;
-    font-weight: 800 !important;
-    letter-spacing: -1px;
-}
-
-h2, h3 {
-    color: #102A43 !important;
-}
-
-/* BARRA LATERAL */
-
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #102A43, #174A70);
-}
-
-section[data-testid="stSidebar"] h3 {
-    color: white !important;
-}
-
-section[data-testid="stSidebar"] p {
-    color: #E0EDF8 !important;
-    line-height: 1.8;
-}
-
-/* ETIQUETA */
-
-.badge {
-    display: inline-block;
-    background: #DCEEFF;
-    color: #075A9E;
-    border: 1px solid #C1E0FA;
-    padding: 7px 13px;
-    border-radius: 30px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
-}
-
-/* LÍNEA */
-
-.linea {
-    width: 78px;
-    height: 5px;
-    background: linear-gradient(90deg, #1677C8, #57B5F5);
-    border-radius: 10px;
-    margin: 15px 0 30px;
-}
-
-/* =========================================================
-   TARJETAS NATIVAS DE STREAMLIT
-   ========================================================= */
-
-/* Fondo blanco en los contenedores con borde */
-
-div[data-testid="stVerticalBlockBorderWrapper"] {
-    background-color: #FFFFFF !important;
-    border: 1px solid #D5E2EF !important;
-    border-radius: 18px !important;
-    box-shadow: 0 5px 18px rgba(16, 42, 67, 0.08);
-    overflow: hidden;
-}
-
-/* Padding interno de cada tarjeta */
-
-div[data-testid="stVerticalBlockBorderWrapper"] > div {
-    background-color: #FFFFFF !important;
-    padding: 18px 16px !important;
-}
-
-/* Los elementos internos deben ser transparentes,
-   para que se vea el fondo blanco de la tarjeta */
-
-div[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlock"] {
-    background-color: transparent !important;
-}
-
-/* TÍTULOS DE LAS TARJETAS */
-
-.card-title {
-    color: #102A43;
-    font-size: 18px;
-    font-weight: 800;
-    text-align: center;
-    line-height: 1.45;
-    min-height: 52px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 12px;
-    overflow-wrap: anywhere;
-}
-
-/* DESCRIPCIÓN */
-
-.card-description {
-    color: #52677B;
-    font-size: 13px;
-    line-height: 1.7;
-    text-align: center;
-    min-height: 68px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 8px 0 12px;
-    overflow-wrap: anywhere;
-}
-
-/* IMÁGENES */
-
-div[data-testid="stImage"] {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 8px auto 14px;
-}
-
-div[data-testid="stImage"] img {
-    object-fit: contain;
-    border-radius: 10px;
-}
-
-/* BOTONES NATIVOS */
-
-div[data-testid="stLinkButton"] {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 10px 0 4px;
-}
-
-div[data-testid="stLinkButton"] a {
-    background-color: #1677C8 !important;
-    border: 1px solid #1677C8 !important;
-    color: #FFFFFF !important;
-    border-radius: 10px !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    text-align: center;
-    transition: background-color 0.2s ease;
-}
-
-div[data-testid="stLinkButton"] a:hover {
-    background-color: #105A96 !important;
-    border-color: #105A96 !important;
-    color: #FFFFFF !important;
-}
-
-/* GITHUB */
-
-.github-label {
-    color: #1677C8;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.2px;
-    margin-bottom: 7px;
-}
-
-.github-title {
-    color: #102A43;
-    font-size: 21px;
-    font-weight: 800;
-    margin-bottom: 8px;
-}
-
-.github-text {
-    color: #52677B;
-    font-size: 13px;
-    line-height: 1.7;
-}
-
-.github-icon {
-    background: #E8F4FF;
-    color: #105A96;
-    border-radius: 14px;
-    padding: 12px;
-    text-align: center;
-    font-size: 28px;
-}
-
-/* PIE DE PÁGINA */
-
-.footer {
-    text-align: center;
-    margin-top: 35px;
-    padding-top: 24px;
-    border-top: 1px solid #D8E4F0;
-    color: #627D98;
-    font-size: 12px;
-}
-
-/* MÓVILES */
-
-@media (max-width: 768px) {
-    .main .block-container {
-        padding: 1.5rem 1rem 2rem;
+    .stApp {
+        background:
+            radial-gradient(
+                ellipse at 8% 8%,
+                rgba(123, 177, 231, 0.22) 0%,
+                transparent 35%
+            ),
+            radial-gradient(
+                ellipse at 92% 22%,
+                rgba(174, 202, 239, 0.30) 0%,
+                transparent 32%
+            ),
+            radial-gradient(
+                ellipse at 50% 95%,
+                rgba(120, 164, 218, 0.18) 0%,
+                transparent 40%
+            ),
+            linear-gradient(
+                135deg,
+                #eef4fb 0%,
+                #e5edf8 45%,
+                #f3f6fc 100%
+            );
+        background-attachment: fixed;
     }
 
-    .card-title {
-        font-size: 17px;
+    /* Textura decorativa con puntos muy sutiles */
+    .stApp::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.24;
+        background-image: radial-gradient(
+            rgba(68, 102, 148, 0.24) 0.65px,
+            transparent 0.65px
+        );
+        background-size: 9px 9px;
+        mask-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.55),
+            transparent 90%
+        );
     }
-}
+
+    /* Mantener el contenido por encima de la textura */
+    .stMainBlockContainer {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Fondo del área principal */
+    [data-testid="stAppViewContainer"] {
+        background: transparent;
+    }
+
+    [data-testid="stHeader"] {
+        background: rgba(238, 244, 251, 0.65);
+    }
+
+    /* ==========================================
+       BARRA LATERAL
+       ========================================== */
+
+    [data-testid="stSidebar"] {
+        background: linear-gradient(
+            160deg,
+            #102b4e 0%,
+            #173b65 55%,
+            #24527e 100%
+        );
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    [data-testid="stSidebar"] * {
+        color: #f4f8ff;
+    }
+
+    [data-testid="stSidebar"] p {
+        line-height: 1.7;
+    }
+
+    /* ==========================================
+       ENCABEZADO DEL PORTAFOLIO
+       ========================================== */
+
+    .portfolio-header {
+        padding: 35px 30px;
+        margin: 8px 0 28px 0;
+        border-radius: 24px;
+        background:
+            radial-gradient(
+                circle at 90% 10%,
+                rgba(106, 165, 226, 0.25),
+                transparent 35%
+            ),
+            linear-gradient(
+                125deg,
+                rgba(255, 255, 255, 0.94),
+                rgba(234, 242, 253, 0.91)
+            );
+        border: 1px solid rgba(255, 255, 255, 0.85);
+        box-shadow: 0 12px 35px rgba(36, 67, 108, 0.09);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .portfolio-header::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        right: -60px;
+        bottom: -105px;
+        border-radius: 50%;
+        border: 25px solid rgba(77, 132, 194, 0.09);
+    }
+
+    .eyebrow {
+        color: #3972ad;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 3px;
+        margin-bottom: 12px;
+    }
+
+    .main-title {
+        color: #163354;
+        font-size: clamp(28px, 4vw, 43px);
+        font-weight: 800;
+        line-height: 1.15;
+        margin: 0 0 12px 0;
+    }
+
+    .main-subtitle {
+        color: #61758d;
+        font-size: 16px;
+        line-height: 1.7;
+        margin: 0;
+        max-width: 720px;
+    }
+
+    /* ==========================================
+       TÍTULOS DE SECCIÓN
+       ========================================== */
+
+    .section-title {
+        color: #193a5d;
+        font-size: 25px;
+        font-weight: 800;
+        margin: 26px 0 8px 0;
+    }
+
+    .section-subtitle {
+        color: #647991;
+        font-size: 14px;
+        margin: 0 0 24px 0;
+    }
+
+    /* ==========================================
+       TARJETAS DE APLICACIONES
+       ========================================== */
+
+    .app-card {
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 390px;
+        height: 100%;
+        padding: 23px 18px 20px;
+        margin-bottom: 24px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(207, 222, 240, 0.95);
+        border-radius: 20px;
+
+        box-shadow:
+            0 8px 22px rgba(32, 66, 108, 0.07),
+            0 2px 5px rgba(32, 66, 108, 0.03);
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            border-color 0.25s ease;
+    }
+
+    .app-card:hover {
+        transform: translateY(-5px);
+        border-color: #a8c8ed;
+        box-shadow: 0 16px 32px rgba(32, 66, 108, 0.13);
+    }
+
+    .app-card-title {
+        width: 100%;
+        min-height: 54px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: #193b60;
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 1.4;
+
+        margin-bottom: 13px;
+    }
+
+    .app-card-image {
+        width: 100%;
+        height: 155px;
+        flex-shrink: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 0 auto 16px;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    .app-card-image img {
+        display: block;
+        max-width: 100%;
+        max-height: 150px;
+        object-fit: contain;
+        border-radius: 10px;
+    }
+
+    .image-missing {
+        width: 100%;
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #edf3fa;
+        color: #71859b;
+        border-radius: 12px;
+        font-size: 13px;
+    }
+
+    .app-card-description {
+        width: 100%;
+        min-height: 62px;
+
+        color: #65778c;
+        font-size: 14px;
+        line-height: 1.65;
+
+        margin-bottom: 20px;
+    }
+
+    .app-card-action {
+        width: 100%;
+        margin-top: auto;
+
+        display: flex;
+        justify-content: center;
+    }
+
+    .app-button {
+        box-sizing: border-box;
+        display: inline-block;
+        width: 100%;
+        max-width: 240px;
+        padding: 12px 16px;
+
+        color: #ffffff !important;
+        background: linear-gradient(135deg, #245d96, #397fc0);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 11px;
+
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none !important;
+
+        box-shadow: 0 4px 10px rgba(37, 94, 151, 0.17);
+        transition: all 0.2s ease;
+    }
+
+    .app-button:hover {
+        background: linear-gradient(135deg, #174574, #286aa9);
+        box-shadow: 0 7px 16px rgba(37, 94, 151, 0.24);
+        transform: translateY(-2px);
+    }
+
+    /* ==========================================
+       TARJETA DE GITHUB
+       ========================================== */
+
+    .github-card {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 25px 28px;
+        margin: 12px 0 30px 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 22px;
+
+        background:
+            radial-gradient(
+                circle at 95% 5%,
+                rgba(98, 155, 216, 0.17),
+                transparent 35%
+            ),
+            rgba(255, 255, 255, 0.96);
+
+        border: 1px solid #d4e2f2;
+        border-radius: 19px;
+        box-shadow: 0 8px 22px rgba(32, 66, 108, 0.07);
+    }
+
+    .github-info {
+        flex: 1;
+        min-width: 220px;
+    }
+
+    .github-title {
+        color: #193b60;
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+
+    .github-description {
+        color: #65778c;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .github-button {
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 13px 20px;
+
+        color: #ffffff !important;
+        background: linear-gradient(135deg, #183858, #2d5d88);
+        border-radius: 11px;
+
+        text-decoration: none !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+
+        box-shadow: 0 5px 13px rgba(24, 56, 88, 0.17);
+        transition: all 0.2s ease;
+    }
+
+    .github-button:hover {
+        background: linear-gradient(135deg, #102b47, #204b75);
+        transform: translateY(-2px);
+    }
+
+    /* ==========================================
+       PIE DE PÁGINA
+       ========================================== */
+
+    .footer {
+        margin-top: 30px;
+        padding: 22px 10px 12px;
+        border-top: 1px solid rgba(114, 143, 176, 0.25);
+
+        color: #6d8096;
+        font-size: 13px;
+        text-align: center;
+        line-height: 1.8;
+    }
+
+    /* ==========================================
+       AJUSTES PARA PANTALLAS PEQUEÑAS
+       ========================================== */
+
+    @media (max-width: 700px) {
+        .portfolio-header {
+            padding: 25px 20px;
+        }
+
+        .github-card {
+            padding: 22px;
+        }
+
+        .github-button {
+            width: 100%;
+        }
+
+        .app-card {
+            min-height: 370px;
+        }
+    }
+
 </style>
 """, unsafe_allow_html=True)
-
 
 # =========================================================
 # BARRA LATERAL
 # =========================================================
 
 with st.sidebar:
-    st.subheader("Aplicaciones con Streamlit, GitHub, Python.")
+    st.markdown("## 💻 Mi portafolio")
 
-    st.write(
-        "Aplicaciones hechas en el proceso del curso. "
-        "Se han aprendido nuevas e interesantes herramientas "
-        "para aplicar. Todo con el fin de entender mejor "
-        "este tipo de tecnologías."
-    )
+    st.markdown("""
+    Aplicaciones desarrolladas con **Streamlit, GitHub y Python**.
 
+    Durante el curso se han explorado nuevas herramientas
+    y tecnologías para comprender mejor el desarrollo de
+    aplicaciones interactivas.
+    """)
+
+    st.markdown("---")
+
+    st.markdown("### 📚 Contenido")
+    st.markdown("""
+    - Aplicaciones desarrolladas
+    - Proyectos de reconocimiento
+    - Herramientas de texto y traducción
+    - Inteligencia artificial
+    """)
+
+    st.markdown("---")
+
+    st.caption("Portafolio académico · 2026")
 
 # =========================================================
 # ENCABEZADO
 # =========================================================
 
-st.markdown(
-    '<div class="badge">PORTAFOLIO ACADÉMICO</div>',
-    unsafe_allow_html=True
-)
-
-st.title("Portafolio de seguimiento - Aplicaciones.")
-
-st.markdown(
-    '<div class="linea"></div>',
-    unsafe_allow_html=True
-)
-
-
-# =========================================================
-# REPOSITORIOS GITHUB
-# =========================================================
-
-url_ia = "https://github.com/Usuario-s?tab=repositories"
-
-with st.container(border=True):
-
-    github_col1, github_col2 = st.columns([5, 1])
-
-    with github_col1:
-        st.markdown(
-            '<div class="github-label">CÓDIGO Y PROYECTOS</div>'
-            '<div class="github-title">Repositorios en GitHub</div>'
-            '<div class="github-text">'
-            'En el siguiente enlace puedes ver los repositorios '
-            'desarrollados durante el proceso del curso.'
-            '</div>',
-            unsafe_allow_html=True
-        )
-
-    with github_col2:
-        st.markdown(
-            '<div class="github-icon">⌘</div>',
-            unsafe_allow_html=True
-        )
-
-    st.link_button(
-        "Ver repositorios en GitHub ↗",
-        url_ia
-    )
-
-st.write("")
-st.write("")
-
+st.markdown("""
+<div class="portfolio-header">
+    <div class="eyebrow">PORTAFOLIO ACADÉMICO</div>
+    <div class="main-title">
+        Portafolio de seguimiento - Aplicaciones
+    </div>
+    <p class="main-subtitle">
+        Un recorrido por los proyectos desarrollados con Python,
+        Streamlit y diferentes herramientas de inteligencia artificial.
+    </p>
+</div>
+""", unsafe_allow_html=True)
 
 # =========================================================
-# FUNCIÓN PARA MOSTRAR APLICACIONES
+# SECCIÓN DE GITHUB
+# =========================================================
+
+url_github = "https://github.com/Usuario-s?tab=repositories"
+
+st.markdown(f"""
+<div class="github-card">
+    <div class="github-info">
+        <div class="github-title">🚀 Explora mis proyectos en GitHub</div>
+        <div class="github-description">
+            Consulta los repositorios y conoce más sobre el código
+            detrás de las aplicaciones de este portafolio.
+        </div>
+    </div>
+    <a class="github-button"
+       href="{url_github}"
+       target="_blank"
+       rel="noopener noreferrer">
+       Ver repositorios ↗
+    </a>
+</div>
+""", unsafe_allow_html=True)
+
+# =========================================================
+# FUNCIÓN PARA MOSTRAR CADA APLICACIÓN
 # =========================================================
 
 def mostrar_app(titulo, imagen_path, descripcion, url, ancho=200):
+    """
+    Cada tarjeta se genera dentro de un único bloque HTML.
+    Así, la imagen, el texto y el enlace quedan dentro
+    de la misma tarjeta blanca.
+    """
 
-    # Crear un contenedor REAL con fondo blanco.
-    # Todos los componentes se crean dentro de este bloque.
-    with st.container(border=True):
+    titulo_html = html.escape(titulo)
+    descripcion_html = html.escape(descripcion)
+    url_html = html.escape(url, quote=True)
 
-        # Título
-        st.markdown(
-            f'<div class="card-title">{titulo}</div>',
-            unsafe_allow_html=True
-        )
+    try:
+        with open(imagen_path, "rb") as archivo:
+            imagen_bytes = archivo.read()
 
-        # Imagen
-        try:
-            imagen = Image.open(imagen_path)
+        imagen_base64 = base64.b64encode(imagen_bytes).decode("utf-8")
+        mime_type = mimetypes.guess_type(imagen_path)[0] or "image/png"
 
-            espacio_izq, centro, espacio_der = st.columns(
-                [1, 4, 1]
-            )
+        imagen_html = f"""
+            <img
+                src="data:{mime_type};base64,{imagen_base64}"
+                alt="{titulo_html}"
+                style="width:{ancho}px; max-width:100%;"
+            >
+        """
 
-            with centro:
-                st.image(
-                    imagen,
-                    width=ancho
+    except FileNotFoundError:
+        imagen_html = """
+            <div class="image-missing">
+                Imagen no encontrada
+            </div>
+        """
+
+    tarjeta_html = f"""
+    <div class="app-card">
+
+        <div class="app-card-title">
+            {titulo_html}
+        </div>
+
+        <div class="app-card-image">
+            {imagen_html}
+        </div>
+
+        <div class="app-card-description">
+            {descripcion_html}
+        </div>
+
+        <div class="app-card-action">
+            <a class="app-button"
+               href="{url_html}"
+               target="_blank"
+               rel="noopener noreferrer">
+               Abrir aplicación ↗
+            </a>
+        </div>
+
+    </div>
+    """
+
+    st.markdown(tarjeta_html, unsafe_allow_html=True)
+
+# =========================================================
+# TÍTULO DE LAS APLICACIONES
+# =========================================================
+
+st.markdown("""
+<div class="section-title">Mis aplicaciones</div>
+<div class="section-subtitle">
+    Selecciona un proyecto para abrirlo y explorar su funcionamiento.
+</div>
+""", unsafe_allow_html=True)
+
+# =========================================================
+# LISTA DE APLICACIONES
+# =========================================================
+
+apps = [
+    {
+        "titulo": "Primera app de texto",
+        "imagen": "imagen1.png",
+        "descripcion": "Mi primera app en Streamlit.",
+        "url": "https://intro-app-1-su8r5tpxlwpwnflpltft2y.streamlit.app/",
+        "ancho": 190
+    },
+    {
+        "titulo": "Reconocimiento de Objetos",
+        "imagen": "imagen2.jpg",
+        "descripcion": "En el siguiente enlace veremos cómo se detectan objetos en imágenes.",
+        "url": "https://miaahora-fjj6fujljb6rzv2zwvzoat.streamlit.app/",
+        "ancho": 200
+    },
+    {
+        "titulo": "Traductor",
+        "imagen": "imagen3.png",
+        "descripcion": "Podrás traducir lo que dices a varios idiomas.",
+        "url": "https://traductor-multimodales-msvwvk3xeyowm3ofhsebtq.streamlit.app/",
+        "ancho": 200
+    },
+    {
+        "titulo": "Imagen a texto",
+        "imagen": "imagen4.jpg",
+        "descripcion": "Reconocimiento de imágenes para extraer el texto que contienen.",
+        "url": "https://ocr-imagen-1-hjea2xr4z9ddlpyoibf4pb.streamlit.app/",
+        "ancho": 200
+    },
+    {
+        "titulo": "Reconocimiento de caracteres",
+        "imagen": "imagen5.jpg",
+        "descripcion": "Un reconocimiento de caracteres con datos.",
+        "url": "https://ocr-audio-traductor-2-suib88gv4xbfrjn33prrb8.streamlit.app/",
+        "ancho": 190
+    },
+    {
+        "titulo": "Worldcloud Studio",
+        "imagen": "imagen6.jpg",
+        "descripcion": "Una nube de palabras.",
+        "url": "https://wordcloudmio-dpzz2zwohcpixhtiqhfefz.streamlit.app/",
+        "ancho": 200
+    },
+    {
+        "titulo": "Consultorio psicológico",
+        "imagen": "imagen7.jpg",
+        "descripcion": "En base a una frase, te diremos el mood de tu día.",
+        "url": "https://sentimentpsic-nmnxejormvmhg8vgjeajm6.streamlit.app/",
+        "ancho": 190
+    },
+    {
+        "titulo": "Demo TF-IDF",
+        "imagen": "imagen8.png",
+        "descripcion": "Preguntas y lectura de documentos.",
+        "url": "https://espa-ol-espa-ol-pryjfznrx6oev7g57t7nok.streamlit.app/",
+        "ancho": 200
+    },
+    {
+        "titulo": "Detección de objetos en imágenes",
+        "imagen": "imagen9.png",
+        "descripcion": "Detecta cualquier objeto con tu cámara.",
+        "url": "https://yolov5555-xx2ljp8ij9xinsthel5juu.streamlit.app/",
+        "ancho": 200
+    },
+    {
+        "titulo": "Reconocimiento de imágenes",
+        "imagen": "imagen10.jpg",
+        "descripcion": "Toma una foto y te dirá todo.",
+        "url": "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/",
+        "ancho": 200
+    }
+]
+
+# =========================================================
+# DISTRIBUCIÓN EN TRES COLUMNAS
+# =========================================================
+
+for inicio in range(0, len(apps), 3):
+    columnas = st.columns(3, gap="large")
+
+    for indice, columna in enumerate(columnas):
+        posicion = inicio + indice
+
+        if posicion < len(apps):
+            app = apps[posicion]
+
+            with columna:
+                mostrar_app(
+                    titulo=app["titulo"],
+                    imagen_path=app["imagen"],
+                    descripcion=app["descripcion"],
+                    url=app["url"],
+                    ancho=app["ancho"]
                 )
 
-        except FileNotFoundError:
-            st.warning(
-                f"No se encontró la imagen: {imagen_path}"
-            )
-
-        # Descripción
-        st.markdown(
-            f'<div class="card-description">'
-            f'{descripcion}'
-            f'</div>',
-            unsafe_allow_html=True
-        )
-
-        # Botón
-        col_izq, col_boton, col_der = st.columns(
-            [0.5, 4, 0.5]
-        )
-
-        with col_boton:
-            st.link_button(
-                "Abrir aplicación ↗",
-                url,
-                use_container_width=True
-            )
-
-
 # =========================================================
-# COLUMNAS DE APLICACIONES
-# =========================================================
-
-col1, col2, col3 = st.columns(3, gap="large")
-
-
-# =========================================================
-# COLUMNA 1
-# =========================================================
-
-with col1:
-
-    mostrar_app(
-        "Primera app de texto",
-        "imagen1.png",
-        "Mi primera app en streamlit",
-        "https://intro-app-1-su8r5tpxlwpwnflpltft2y.streamlit.app/",
-        190
-    )
-
-    mostrar_app(
-        "Reconocimiento de Objetos",
-        "imagen2.jpg",
-        "En la siguiente enlace veremos como se detectan objetos en Imágenes.",
-        "https://miaahora-fjj6fujljb6rzv2zwvzoat.streamlit.app/",
-        200
-    )
-
-    mostrar_app(
-        "Traductor",
-        "imagen3.png",
-        "Podrás traducir lo que dices a varios idiomas",
-        "https://traductor-multimodales-msvwvk3xeyowm3ofhsebtq.streamlit.app/",
-        200
-    )
-
-
-# =========================================================
-# COLUMNA 2
-# =========================================================
-
-with col2:
-
-    mostrar_app(
-        "Imagen a texto",
-        "imagen4.jpg",
-        "Aquí verán reconocimiento de imágenes para reconocer el texto de ellas",
-        "https://ocr-imagen-1-hjea2xr4z9ddlpyoibf4pb.streamlit.app/",
-        200
-    )
-
-    mostrar_app(
-        "Reconocimiento de caracteres",
-        "imagen5.jpg",
-        "Un reconocimiento de caracteres con datos",
-        "https://ocr-audio-traductor-2-suib88gv4xbfrjn33prrb8.streamlit.app/",
-        190
-    )
-
-    mostrar_app(
-        "Worldcloud Studio",
-        "imagen6.jpg",
-        "Una nube de palabras",
-        "https://wordcloudmio-dpzz2zwohcpixhtiqhfefz.streamlit.app/",
-        200
-    )
-
-
-# =========================================================
-# COLUMNA 3
-# =========================================================
-
-with col3:
-
-    mostrar_app(
-        "Consultorio psicológico",
-        "imagen7.jpg",
-        "En base a una frase te diremos el mood de tu día",
-        "https://sentimentpsic-nmnxejormvmhg8vgjeajm6.streamlit.app/",
-        190
-    )
-
-    mostrar_app(
-        "Demo TF-IDF",
-        "imagen8.png",
-        "Preguntas y lectura de documentos",
-        "https://espa-ol-espa-ol-pryjfznrx6oev7g57t7nok.streamlit.app/",
-        200
-    )
-
-    mostrar_app(
-        "Detección de objetos en imágenes",
-        "imagen9.png",
-        "Detecta cualquier objeto con tu cámara",
-        "https://yolov5555-xx2ljp8ij9xinsthel5juu.streamlit.app/",
-        200
-    )
-
-    mostrar_app(
-        "Reconocimiento de imágenes",
-        "imagen10.jpg",
-        "Toma una foto y te dirá todo",
-        "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/",
-        200
-    )
-
-
-# =========================================================
-# FOOTER
+# PIE DE PÁGINA
 # =========================================================
 
 st.markdown("""
 <div class="footer">
-    Portafolio de aplicaciones · Streamlit · Python · GitHub
+    <strong>Portafolio de seguimiento</strong><br>
+    Desarrollado con Python y Streamlit<br>
+    Explorando nuevas herramientas, una aplicación a la vez.
 </div>
 """, unsafe_allow_html=True)
+
 
 
