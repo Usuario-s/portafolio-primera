@@ -525,24 +525,24 @@ apps = [
         "ancho": 200
     },
     {
-        "titulo": "Nueva aplicación 13",
-        "imagen": "imagen13.png",
-        "descripcion": "Descripción de la nueva aplicación.",
-        "url": "https://example.com",
+        "titulo": "Tablero Inteligente",
+        "imagen": "im3.jpg",
+        "descripcion": "Tablero inteligente",
+        "url": "https://port2-drawrecog-enzmsvgmq7x3ccy9uba2ha.streamlit.app/",
         "ancho": 200
     },
     {
-        "titulo": "Nueva aplicación 14",
-        "imagen": "imagen14.jpg",
-        "descripcion": "Descripción de la nueva aplicación.",
-        "url": "https://example.com",
+        "titulo": "Numeros
+        "imagen": "im4.jpg",
+        "descripcion": "Escribe los numeros que quieras",
+        "url": "https://port2---reconocimiento-numeros-8q2tduyvojm24mjcapzbbs.streamlit.app/",
         "ancho": 200
     },
     {
-        "titulo": "Nueva aplicación 15",
-        "imagen": "imagen15.png",
-        "descripcion": "Descripción de la nueva aplicación.",
-        "url": "https://example.com",
+        "titulo": "Tablero personal",
+        "imagen": "im5.jpg",
+        "descripcion": "Todo a tu creatividad",
+        "url": "https://port2-maybe-app-mine-q4gprc6a5iapp3yanjvtykq.streamlit.app/",
         "ancho": 200
     },
     {
