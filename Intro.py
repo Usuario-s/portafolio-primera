@@ -169,6 +169,9 @@ st.markdown("""
     color: #71859b;
     border-radius: 12px;
     font-size: 13px;
+    overflow-wrap: anywhere;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
 .app-card-description {
@@ -299,22 +302,27 @@ st.markdown("""
 
 with st.sidebar:
     st.markdown("## 💻 Mi portafolio")
+
     st.write(
         "Aplicaciones con Streamlit, GitHub y Python."
     )
+
     st.write(
         "Aplicaciones hechas durante el curso. "
         "Se han aprendido nuevas e interesantes herramientas "
         "para aplicar y comprender mejor estas tecnologías."
     )
+
     st.markdown("---")
     st.markdown("### 📚 Contenido")
+
     st.markdown("""
     - Aplicaciones desarrolladas
     - Reconocimiento de objetos
     - Texto y traducción
     - Inteligencia artificial
     """)
+
     st.markdown("---")
     st.caption("Portafolio académico · 2026")
 
@@ -357,7 +365,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =========================================================
-# FUNCIÓN DE TARJETA
+# FUNCIÓN PARA MOSTRAR LAS TARJETAS
 # =========================================================
 
 def mostrar_app(titulo, imagen_path, descripcion, url, ancho=200):
@@ -369,9 +377,14 @@ def mostrar_app(titulo, imagen_path, descripcion, url, ancho=200):
 
     if ruta.is_file():
         with ruta.open("rb") as archivo:
-            datos = base64.b64encode(archivo.read()).decode("ascii")
+            datos = base64.b64encode(
+                archivo.read()
+            ).decode("ascii")
 
-        mime = mimetypes.guess_type(str(ruta))[0] or "image/png"
+        mime = (
+            mimetypes.guess_type(str(ruta))[0]
+            or "image/png"
+        )
 
         imagen_html = (
             f'<img src="data:{mime};base64,{datos}" '
@@ -380,12 +393,12 @@ def mostrar_app(titulo, imagen_path, descripcion, url, ancho=200):
         )
     else:
         imagen_html = (
-            '<div class="image-missing">Imagen no encontrada: '
+            '<div class="image-missing">'
+            'Imagen no encontrada: '
             + html.escape(imagen_path)
             + '</div>'
         )
 
-    # TODO el contenido de la tarjeta se envía en un solo bloque
     tarjeta_html = f"""
     <div class="app-card">
         <div class="app-card-title">{titulo_html}</div>
@@ -402,10 +415,13 @@ def mostrar_app(titulo, imagen_path, descripcion, url, ancho=200):
     </div>
     """
 
-    st.markdown(tarjeta_html, unsafe_allow_html=True)
+    st.markdown(
+        tarjeta_html,
+        unsafe_allow_html=True
+    )
 
 # =========================================================
-# APLICACIONES
+# LISTA DE APLICACIONES (19 EN TOTAL)
 # =========================================================
 
 st.markdown("""
@@ -416,6 +432,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 apps = [
+    # -----------------------------------------------------
+    # APLICACIONES ORIGINALES (1-10)
+    # -----------------------------------------------------
     {
         "titulo": "Primera app de texto",
         "imagen": "imagen1.png",
@@ -485,11 +504,79 @@ apps = [
         "descripcion": "Toma una foto y te dirá todo.",
         "url": "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/",
         "ancho": 200
+    },
+
+    # -----------------------------------------------------
+    # NUEVAS APLICACIONES (11-19)
+    # Cambia estos datos por los de tus proyectos reales.
+    # -----------------------------------------------------
+    {
+        "titulo": "Nueva aplicación 11",
+        "imagen": "imagen11.png",
+        "descripcion": "Descripción de la nueva aplicación.",
+        "url": "https://example.com",
+        "ancho": 200
+    },
+    {
+        "titulo": "Nueva aplicación 12",
+        "imagen": "imagen12.jpg",
+        "descripcion": "Descripción de la nueva aplicación.",
+        "url": "https://example.com",
+        "ancho": 200
+    },
+    {
+        "titulo": "Nueva aplicación 13",
+        "imagen": "imagen13.png",
+        "descripcion": "Descripción de la nueva aplicación.",
+        "url": "https://example.com",
+        "ancho": 200
+    },
+    {
+        "titulo": "Nueva aplicación 14",
+        "imagen": "imagen14.jpg",
+        "descripcion": "Descripción de la nueva aplicación.",
+        "url": "https://example.com",
+        "ancho": 200
+    },
+    {
+        "titulo": "Nueva aplicación 15",
+        "imagen": "imagen15.png",
+        "descripcion": "Descripción de la nueva aplicación.",
+        "url": "https://example.com",
+        "ancho": 200
+    },
+    {
+        "titulo": "Nueva aplicación 16",
+        "imagen": "imagen16.jpg",
+        "descripcion": "Descripción de la nueva aplicación.",
+        "url": "https://example.com",
+        "ancho": 200
+    },
+    {
+        "titulo": "Nueva aplicación 17",
+        "imagen": "imagen17.png",
+        "descripcion": "Descripción de la nueva aplicación.",
+        "url": "https://example.com",
+        "ancho": 200
+    },
+    {
+        "titulo": "Nueva aplicación 18",
+        "imagen": "imagen18.jpg",
+        "descripcion": "Descripción de la nueva aplicación.",
+        "url": "https://example.com",
+        "ancho": 200
+    },
+    {
+        "titulo": "Nueva aplicación 19",
+        "imagen": "imagen19.png",
+        "descripcion": "Descripción de la nueva aplicación.",
+        "url": "https://example.com",
+        "ancho": 200
     }
 ]
 
 # =========================================================
-# DISTRIBUCIÓN EN TRES COLUMNAS
+# DISTRIBUCIÓN AUTOMÁTICA EN TRES COLUMNAS
 # =========================================================
 
 for inicio in range(0, len(apps), 3):
@@ -500,6 +587,7 @@ for inicio in range(0, len(apps), 3):
 
         if posicion < len(apps):
             app = apps[posicion]
+
             with columna:
                 mostrar_app(
                     titulo=app["titulo"],
