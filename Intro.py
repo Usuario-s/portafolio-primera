@@ -532,7 +532,7 @@ apps = [
         "ancho": 200
     },
     {
-        "titulo": "Numeros
+        "titulo": "Numeros"
         "imagen": "im4.jpg",
         "descripcion": "Escribe los numeros que quieras",
         "url": "https://port2---reconocimiento-numeros-8q2tduyvojm24mjcapzbbs.streamlit.app/",
