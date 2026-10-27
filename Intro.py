@@ -553,24 +553,24 @@ apps = [
         "ancho": 200
     },
     {
-        "titulo": "Nueva aplicación 17",
-        "imagen": "imagen17.png",
-        "descripcion": "Descripción de la nueva aplicación.",
-        "url": "https://example.com",
+        "titulo": "Sensor reader",
+        "imagen": "im7.jpg",
+        "descripcion": "sensor mqtt reader de textos",
+        "url": "https://recepmqtt-portf2-mio-6vecwa2gr8x3gdjkzubaem.streamlit.app/undefined",
         "ancho": 200
     },
     {
-        "titulo": "Nueva aplicación 18",
-        "imagen": "imagen18.jpg",
-        "descripcion": "Descripción de la nueva aplicación.",
-        "url": "https://example.com",
+        "titulo": "space control mqtt",
+        "imagen": "im8.jpg",
+        "descripcion": "app de control mqtt",
+        "url": "https://sendcmqtt-portf2-mcgst6sqf9czkuft5yy83n.streamlit.app/",
         "ancho": 200
     },
     {
-        "titulo": "Nueva aplicación 19",
-        "imagen": "imagen19.png",
-        "descripcion": "Descripción de la nueva aplicación.",
-        "url": "https://example.com",
+        "titulo": "voice",
+        "imagen": "im9.jpg",
+        "descripcion": "Sistema de reconocimiento vocal",
+        "url": "https://ctrlvoice-portf2-han5hijiban4ibn8jcwfan.streamlit.app/",
         "ancho": 200
     }
 ]
