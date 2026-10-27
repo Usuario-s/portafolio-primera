@@ -527,7 +527,7 @@ apps = [
     {
         "titulo": "Tablero Inteligente",
         "imagen": "im3.jpg",
-        "descripcion": "Tablero inteligente",
+        "descripcion": "Tablero comun",
         "url": "https://port2-drawrecog-enzmsvgmq7x3ccy9uba2ha.streamlit.app/",
         "ancho": 200
     },
