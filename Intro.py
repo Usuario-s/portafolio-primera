@@ -532,7 +532,7 @@ apps = [
         "ancho": 200
     },
     {
-        "titulo": "Numeros"
+        "titulo": "Numeros",
         "imagen": "im4.jpg",
         "descripcion": "Escribe los numeros que quieras",
         "url": "https://port2---reconocimiento-numeros-8q2tduyvojm24mjcapzbbs.streamlit.app/",
@@ -546,10 +546,10 @@ apps = [
         "ancho": 200
     },
     {
-        "titulo": "Nueva aplicación 16",
-        "imagen": "imagen16.jpg",
-        "descripcion": "Descripción de la nueva aplicación.",
-        "url": "https://example.com",
+        "titulo": "Tablero inteligente ultra hd",
+        "imagen": "im6.jpg",
+        "descripcion": "Tablero aun mas inteligente",
+        "url": "https://port2-hist-4th-app-vcqepbfrojh4edityvjgvw.streamlit.app/",
         "ancho": 200
     },
     {
