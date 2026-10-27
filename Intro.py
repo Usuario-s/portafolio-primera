@@ -512,14 +512,14 @@ apps = [
     # -----------------------------------------------------
     {
         "titulo": "Chat PDF",
-        "imagen": "imagen11.png",
+        "imagen": "im1.jpg",
         "descripcion": "Chatea con la IA",
         "url": "https://chatea-pdf-k4mke22znp5eapzqklyzar.streamlit.app/",
         "ancho": 200
     },
     {
         "titulo": "Inter- de imagenes con IA",
-        "imagen": "imagen12.jpg",
+        "imagen": "im2.jpg",
         "descripcion": "Interpretacion de imagenes con IA",
         "url": "https://inter-de-imagenes-con-ia-vtvwyqnb2dwnzfz3vnougm.streamlit.app/",
         "ancho": 200
