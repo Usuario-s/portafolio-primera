@@ -103,7 +103,7 @@ st.markdown("""
     margin: 0 0 24px;
 }
 
-/* TARJETAS */
+/* TARJETAS ORIGINALES */
 
 .app-card {
     box-sizing: border-box;
@@ -209,6 +209,50 @@ st.markdown("""
 .app-button:hover {
     background: linear-gradient(135deg, #174574, #286aa9);
     box-shadow: 0 7px 16px rgba(37,94,151,.24);
+}
+
+/* =========================================================
+   SEGUNDA PARTE: CHAT PDF HASTA VOICE
+   TARJETAS NEGRAS Y LETRAS BLANCAS
+   ========================================================= */
+
+.app-card.app-card-second {
+    background: linear-gradient(145deg, #101010, #1b1b1b);
+    border: 1px solid #383838;
+    box-shadow: 0 10px 26px rgba(0,0,0,.22);
+}
+
+.app-card.app-card-second:hover {
+    background: linear-gradient(145deg, #181818, #242424);
+    border-color: #555555;
+    box-shadow: 0 16px 34px rgba(0,0,0,.32);
+}
+
+.app-card.app-card-second .app-card-title {
+    color: #ffffff;
+}
+
+.app-card.app-card-second .app-card-description {
+    color: #dedede;
+}
+
+.app-card.app-card-second .image-missing {
+    background: #292929;
+    color: #eeeeee;
+    border: 1px solid #414141;
+}
+
+/* BOTONES ROJOS DE LA SEGUNDA PARTE */
+
+.app-card.app-card-second .app-button {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #b5121b, #ed2939);
+    box-shadow: 0 4px 12px rgba(237,41,57,.22);
+}
+
+.app-card.app-card-second .app-button:hover {
+    background: linear-gradient(135deg, #8f0d15, #c91828);
+    box-shadow: 0 7px 18px rgba(237,41,57,.35);
 }
 
 /* GITHUB */
@@ -368,7 +412,14 @@ st.markdown("""
 # FUNCIÓN PARA MOSTRAR LAS TARJETAS
 # =========================================================
 
-def mostrar_app(titulo, imagen_path, descripcion, url, ancho=200):
+def mostrar_app(
+    titulo,
+    imagen_path,
+    descripcion,
+    url,
+    ancho=200,
+    segunda_parte=False
+):
     titulo_html = html.escape(titulo)
     descripcion_html = html.escape(descripcion)
     url_html = html.escape(url, quote=True)
@@ -399,8 +450,15 @@ def mostrar_app(titulo, imagen_path, descripcion, url, ancho=200):
             + '</div>'
         )
 
+    # Aplicar diseño especial únicamente a la segunda parte
+    clase_tarjeta = (
+        "app-card app-card-second"
+        if segunda_parte
+        else "app-card"
+    )
+
     tarjeta_html = f"""
-    <div class="app-card">
+    <div class="{clase_tarjeta}">
         <div class="app-card-title">{titulo_html}</div>
         <div class="app-card-image">{imagen_html}</div>
         <div class="app-card-description">{descripcion_html}</div>
@@ -507,8 +565,8 @@ apps = [
     },
 
     # -----------------------------------------------------
-    # NUEVAS APLICACIONES (11-19)
-    # Cambia estos datos por los de tus proyectos reales.
+    # SEGUNDA PARTE (11-19)
+    # Tarjetas negras, letras blancas y botones rojos
     # -----------------------------------------------------
     {
         "titulo": "Chat PDF",
@@ -594,7 +652,8 @@ for inicio in range(0, len(apps), 3):
                     imagen_path=app["imagen"],
                     descripcion=app["descripcion"],
                     url=app["url"],
-                    ancho=app["ancho"]
+                    ancho=app["ancho"],
+                    segunda_parte=posicion >= 10
                 )
 
 # =========================================================
@@ -608,5 +667,4 @@ st.markdown("""
     Explorando nuevas herramientas, una aplicación a la vez.
 </div>
 """, unsafe_allow_html=True)
-
 
