@@ -511,17 +511,17 @@ apps = [
     # Cambia estos datos por los de tus proyectos reales.
     # -----------------------------------------------------
     {
-        "titulo": "Nueva aplicación 11",
+        "titulo": "Chat PDF",
         "imagen": "imagen11.png",
-        "descripcion": "Descripción de la nueva aplicación.",
-        "url": "https://example.com",
+        "descripcion": "Chatea con la IA",
+        "url": "https://chatea-pdf-k4mke22znp5eapzqklyzar.streamlit.app/",
         "ancho": 200
     },
     {
-        "titulo": "Nueva aplicación 12",
+        "titulo": "Inter- de imagenes con IA",
         "imagen": "imagen12.jpg",
-        "descripcion": "Descripción de la nueva aplicación.",
-        "url": "https://example.com",
+        "descripcion": "Interpretacion de imagenes con IA",
+        "url": "https://inter-de-imagenes-con-ia-vtvwyqnb2dwnzfz3vnougm.streamlit.app/",
         "ancho": 200
     },
     {
